@@ -41,6 +41,15 @@ struct ContentView: View {
                         SettingsView()
                     }
                 }
+                ToolbarItem(placement: .principal) {
+                    Button(Date.today.addDays(dateOffset).relativeString) {
+                        withAnimation {
+                            dateOffset = 0
+                        }
+                    }
+                    .foregroundColor(.primary)
+                    .font(.headline)
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         refresh.send()
