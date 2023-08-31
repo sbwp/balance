@@ -11,6 +11,18 @@
 		D9A933AD2A95058E006E144A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933AC2A95058E006E144A /* ContentView.swift */; };
 		D9A933AF2A95058F006E144A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9A933AE2A95058F006E144A /* Assets.xcassets */; };
 		D9A933B22A95058F006E144A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9A933B12A95058F006E144A /* Preview Assets.xcassets */; };
+		D9A933B92A9505CA006E144A /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933B82A9505CA006E144A /* HealthKitHelper.swift */; };
+		D9A933BD2A951C5C006E144A /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933BC2A951C5C006E144A /* Date.swift */; };
+		D9A933BF2A952C04006E144A /* StackedBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933BE2A952C04006E144A /* StackedBar.swift */; };
+		D9A933C12A9574DC006E144A /* EstimationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933C02A9574DC006E144A /* EstimationMode.swift */; };
+		D9A933C42A958079006E144A /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933C32A958079006E144A /* Double.swift */; };
+		D9A933C62AA0FC51006E144A /* DailySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933C52AA0FC50006E144A /* DailySummaryView.swift */; };
+		D9A933C82AA0FEA3006E144A /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933C72AA0FEA3006E144A /* ViewExtensions.swift */; };
+		D9A933CE2AA10776006E144A /* GoalDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933CD2AA10776006E144A /* GoalDirection.swift */; };
+		D9A933D02AA11044006E144A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933CF2AA11044006E144A /* SettingsView.swift */; };
+		D9A933D22AA11D37006E144A /* DateFlipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D12AA11D37006E144A /* DateFlipper.swift */; };
+		D9A933D42AA1237A006E144A /* EnvironmentKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */; };
+		D9A933D82AA1308A006E144A /* OpposedStacksCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +31,20 @@
 		D9A933AC2A95058E006E144A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D9A933AE2A95058F006E144A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9A933B12A95058F006E144A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D9A933B82A9505CA006E144A /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
+		D9A933BA2A95092A006E144A /* Balance.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Balance.entitlements; sourceTree = "<group>"; };
+		D9A933BB2A951331006E144A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D9A933BC2A951C5C006E144A /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		D9A933BE2A952C04006E144A /* StackedBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBar.swift; sourceTree = "<group>"; };
+		D9A933C02A9574DC006E144A /* EstimationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimationMode.swift; sourceTree = "<group>"; };
+		D9A933C32A958079006E144A /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		D9A933C52AA0FC50006E144A /* DailySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySummaryView.swift; sourceTree = "<group>"; };
+		D9A933C72AA0FEA3006E144A /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		D9A933CD2AA10776006E144A /* GoalDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDirection.swift; sourceTree = "<group>"; };
+		D9A933CF2AA11044006E144A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D9A933D12AA11D37006E144A /* DateFlipper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFlipper.swift; sourceTree = "<group>"; };
+		D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKeys.swift; sourceTree = "<group>"; };
+		D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpposedStacksCircle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +77,12 @@
 		D9A933A92A95058E006E144A /* Balance */ = {
 			isa = PBXGroup;
 			children = (
+				D9A933C22A958063006E144A /* SystemExtensions */,
+				D9A933CC2AA0FFFA006E144A /* Domain */,
+				D9A933CB2AA0FFF3006E144A /* Views */,
+				D9A933BB2A951331006E144A /* Info.plist */,
+				D9A933BA2A95092A006E144A /* Balance.entitlements */,
 				D9A933AA2A95058E006E144A /* BalanceApp.swift */,
-				D9A933AC2A95058E006E144A /* ContentView.swift */,
 				D9A933AE2A95058F006E144A /* Assets.xcassets */,
 				D9A933B02A95058F006E144A /* Preview Content */,
 			);
@@ -65,6 +95,48 @@
 				D9A933B12A95058F006E144A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D9A933C22A958063006E144A /* SystemExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				D9A933BC2A951C5C006E144A /* Date.swift */,
+				D9A933C32A958079006E144A /* Double.swift */,
+				D9A933C72AA0FEA3006E144A /* ViewExtensions.swift */,
+				D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */,
+			);
+			path = SystemExtensions;
+			sourceTree = "<group>";
+		};
+		D9A933C92AA0FFC6006E144A /* UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				D9A933BE2A952C04006E144A /* StackedBar.swift */,
+				D9A933D12AA11D37006E144A /* DateFlipper.swift */,
+				D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */,
+			);
+			path = UIElements;
+			sourceTree = "<group>";
+		};
+		D9A933CB2AA0FFF3006E144A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D9A933AC2A95058E006E144A /* ContentView.swift */,
+				D9A933C52AA0FC50006E144A /* DailySummaryView.swift */,
+				D9A933CF2AA11044006E144A /* SettingsView.swift */,
+				D9A933C92AA0FFC6006E144A /* UIElements */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D9A933CC2AA0FFFA006E144A /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				D9A933B82A9505CA006E144A /* HealthKitHelper.swift */,
+				D9A933C02A9574DC006E144A /* EstimationMode.swift */,
+				D9A933CD2AA10776006E144A /* GoalDirection.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +210,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				D9A933AD2A95058E006E144A /* ContentView.swift in Sources */,
+				D9A933BF2A952C04006E144A /* StackedBar.swift in Sources */,
+				D9A933B92A9505CA006E144A /* HealthKitHelper.swift in Sources */,
 				D9A933AB2A95058E006E144A /* BalanceApp.swift in Sources */,
+				D9A933C82AA0FEA3006E144A /* ViewExtensions.swift in Sources */,
+				D9A933BD2A951C5C006E144A /* Date.swift in Sources */,
+				D9A933D82AA1308A006E144A /* OpposedStacksCircle.swift in Sources */,
+				D9A933CE2AA10776006E144A /* GoalDirection.swift in Sources */,
+				D9A933C62AA0FC51006E144A /* DailySummaryView.swift in Sources */,
+				D9A933D42AA1237A006E144A /* EnvironmentKeys.swift in Sources */,
+				D9A933D22AA11D37006E144A /* DateFlipper.swift in Sources */,
+				D9A933C12A9574DC006E144A /* EstimationMode.swift in Sources */,
+				D9A933C42A958079006E144A /* Double.swift in Sources */,
+				D9A933D02AA11044006E144A /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,12 +348,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Balance/Balance.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Balance/Preview Content\"";
 				DEVELOPMENT_TEAM = SJ2JB357J3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Balance/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app needs active, resting, and dietary energy data in order to display it to you. The data is not copied, transfered off device, or used in any way other than to display the data to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -293,12 +380,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Balance/Balance.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Balance/Preview Content\"";
 				DEVELOPMENT_TEAM = SJ2JB357J3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Balance/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This app needs active, resting, and dietary energy data in order to display it to you. The data is not copied, transfered off device, or used in any way other than to display the data to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

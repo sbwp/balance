@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct BalanceApp: App {
+    @AppStorage("goal") var goal: Int = GoalKey.defaultValue
+    @AppStorage("estimationMode") var estimationMode: EstimationMode = EstimationModeKey.defaultValue
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.goal, goal)
+                .environment(\.estimationMode, estimationMode)
         }
     }
 }
