@@ -11,15 +11,17 @@ struct ContentView: View {
     @AppStorage("goal") var goal: Int = -1500
     @AppStorage("estimationMode") var estimationMode: EstimationMode = .burnOnly
     @Environment(\.refresh) var refresh
+    @Environment(\.scenePhase) var scenePhase
     
     let hkHelper = HealthKitHelper.getInstance()
     @State var dateOffset = 0
+    @State var displayWeight = false
     
     var body: some View {
         NavigationStack {
             TabView(selection: $dateOffset) {
-                ForEach(-1000..<365) { i in
-                    DailySummaryView(date: Date.today.addDays(i))
+                ForEach(-1000..<2) { i in
+                    DailySummaryView(date: Date.today.addDays(i), doCalculation: i == dateOffset, displayWeight: $displayWeight)
                         .tag(i)
                 }
             }
@@ -35,6 +37,16 @@ struct ContentView: View {
             //         offsets.remove(at: offsets.count - 1)
             //     }
             // }
+            .onAppear(perform: { refresh.send() })
+            .onChange(of: estimationMode, perform: { _ in refresh.send() })
+            .onChange(of: dateOffset, perform: { _ in
+                refresh.send()
+            })
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    refresh.send()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink("Settings") {

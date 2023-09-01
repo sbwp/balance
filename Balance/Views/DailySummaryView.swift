@@ -10,13 +10,13 @@ import SwiftUI
 struct DailySummaryView: View {
     // Inputs
     var date: Date
+    var doCalculation: Bool
+    @Binding var displayWeight: Bool
     
     @Environment(\.goal) var goal
     @Environment(\.estimationMode) var estimationMode
-    @Environment(\.scenePhase) var scenePhase
     @Environment(\.refresh) var refresh
     
-    @State var displayWeight = false
     @State var active: Int = 0
     @State var resting: Int = 0
     @State var dietary: Int = 0
@@ -115,15 +115,11 @@ struct DailySummaryView: View {
         // .background(.regularMaterial)
         // .cornerRadius(20)
         .onAppear(perform: updateData)
-        .onChange(of: estimationMode) { _ in
-            updateData()
-        }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .active {
+        .onReceive(refresh) {
+            if doCalculation {
                 updateData()
             }
         }
-        .onReceive(refresh, perform: updateData)
         .navigationTitle(date.relativeString)
     }
     
@@ -141,6 +137,6 @@ struct DailySummaryView: View {
 
 struct SummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        DailySummaryView(date: Date(), active: 856, resting: 3125, dietary: 1923)
+        DailySummaryView(date: Date(), doCalculation: true, displayWeight: .constant(false))
     }
 }
