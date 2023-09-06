@@ -12,6 +12,10 @@ extension Double {
         return self - value > delta
     }
     
+    func isLessThan(_ value: Double, byDelta delta: Double) -> Bool {
+        return value.isGreaterThan(self, byDelta: delta)
+    }
+    
     func approximatelyEquals(_ value: Double, withinDelta delta: Double) -> Bool {
         return (self - value).magnitude < delta
     }

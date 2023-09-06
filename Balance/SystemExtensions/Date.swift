@@ -39,6 +39,18 @@ extension Date {
         return Calendar.current.isDateInToday(self)
     }
     
+    var hour: Int {
+        return Calendar.current.component(.hour, from: self)
+    }
+    
+    var minute: Int {
+        return Calendar.current.component(.minute, from: self)
+    }
+    
+    var second: Int {
+        return Calendar.current.component(.second, from: self)
+    }
+    
     var percentRemainingInDay: Double {
         return distance(to: endOfDay) / 86_400 // 86_400 is number of seconds in a day
     }
@@ -47,7 +59,21 @@ extension Date {
         return Calendar.current.date(byAdding: DateComponents(day: days), to: self)!
     }
     
+    func addHours(_ hours: Int) -> Date {
+        return Calendar.current.date(byAdding: DateComponents(hour: hours), to: self)!
+    }
+    
+    func setHour(_ hour: Int) -> Date {
+        return Calendar.current.date(bySetting: .hour, value: hour, of: self)!
+    }
+    
     func isSameDayAs(_ other: Date) -> Bool {
         return Calendar.current.isDate(self, inSameDayAs: other)
+    }
+    
+    func distanceInDays(to other: Date) -> Int? {
+        let from = self < other ? self : other
+        let to = self < other ? other : self
+        return Calendar.current.dateComponents([.day], from: from , to: to).day
     }
 }

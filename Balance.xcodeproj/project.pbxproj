@@ -23,6 +23,7 @@
 		D9A933D22AA11D37006E144A /* DateFlipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D12AA11D37006E144A /* DateFlipper.swift */; };
 		D9A933D42AA1237A006E144A /* EnvironmentKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */; };
 		D9A933D82AA1308A006E144A /* OpposedStacksCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */; };
+		D9A933DA2AA80FBA006E144A /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D92AA80FBA006E144A /* HKUnit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		D9A933D12AA11D37006E144A /* DateFlipper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFlipper.swift; sourceTree = "<group>"; };
 		D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKeys.swift; sourceTree = "<group>"; };
 		D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpposedStacksCircle.swift; sourceTree = "<group>"; };
+		D9A933D92AA80FBA006E144A /* HKUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKUnit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				D9A933C32A958079006E144A /* Double.swift */,
 				D9A933C72AA0FEA3006E144A /* ViewExtensions.swift */,
 				D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */,
+				D9A933D92AA80FBA006E144A /* HKUnit.swift */,
 			);
 			path = SystemExtensions;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				D9A933B92A9505CA006E144A /* HealthKitHelper.swift in Sources */,
 				D9A933AB2A95058E006E144A /* BalanceApp.swift in Sources */,
 				D9A933C82AA0FEA3006E144A /* ViewExtensions.swift in Sources */,
+				D9A933DA2AA80FBA006E144A /* HKUnit.swift in Sources */,
 				D9A933BD2A951C5C006E144A /* Date.swift in Sources */,
 				D9A933D82AA1308A006E144A /* OpposedStacksCircle.swift in Sources */,
 				D9A933CE2AA10776006E144A /* GoalDirection.swift in Sources */,

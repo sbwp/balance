@@ -20,7 +20,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $dateOffset) {
-                ForEach(-1000..<2) { i in
+                ForEach(-1000..<1) { i in
                     DailySummaryView(date: Date.today.addDays(i), doCalculation: i == dateOffset, displayWeight: $displayWeight)
                         .tag(i)
                 }
@@ -64,6 +64,7 @@ struct ContentView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
+                        hkHelper.forceNeatRecalc()
                         refresh.send()
                     } label: {
                         Image(systemName: "arrow.clockwise")
