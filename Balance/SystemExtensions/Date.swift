@@ -63,8 +63,24 @@ extension Date {
         return Calendar.current.date(byAdding: DateComponents(hour: hours), to: self)!
     }
     
+    func setTime(hour: Int, minute: Int = 0, second: Int = 0, nanosecond: Int = 0) -> Date {
+        return setHour(hour).setMinute(minute).setSecond(second).setNanosecond(nanosecond)
+    }
+    
     func setHour(_ hour: Int) -> Date {
         return Calendar.current.date(bySetting: .hour, value: hour, of: self)!
+    }
+    
+    func setMinute(_ minute: Int) -> Date {
+        return Calendar.current.date(bySetting: .minute, value: minute, of: self)!
+    }
+    
+    func setSecond(_ second: Int) -> Date {
+        return Calendar.current.date(bySetting: .second, value: second, of: self)!
+    }
+    
+    func setNanosecond(_ nanosecond: Int) -> Date {
+        return Calendar.current.date(bySetting: .nanosecond, value: nanosecond, of: self)!
     }
     
     func isSameDayAs(_ other: Date) -> Bool {

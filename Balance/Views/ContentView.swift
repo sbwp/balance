@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("goal") var goal: Int = -1500
-    @AppStorage("estimationMode") var estimationMode: EstimationMode = .burnOnly
+    @AppStorage("bmrEstimationMode") var bmrEstimationMode: BmrEstimationMode = BmrEstimationModeKey.defaultValue
+    @AppStorage("neatEstimationMode") var neatEstimationMode: NeatEstimationMode = NeatEstimationModeKey.defaultValue
     @Environment(\.refresh) var refresh
     @Environment(\.scenePhase) var scenePhase
     
@@ -38,7 +39,8 @@ struct ContentView: View {
             //     }
             // }
             .onAppear(perform: { refresh.send() })
-            .onChange(of: estimationMode, perform: { _ in refresh.send() })
+            .onChange(of: bmrEstimationMode, perform: { _ in refresh.send() })
+            .onChange(of: neatEstimationMode, perform: { _ in refresh.send() })
             .onChange(of: dateOffset, perform: { _ in
                 refresh.send()
             })

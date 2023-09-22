@@ -14,9 +14,14 @@ extension EnvironmentValues {
         set { self[GoalKey.self] = newValue }
     }
     
-    var estimationMode: EstimationMode {
-        get { self[EstimationModeKey.self] }
-        set { self[EstimationModeKey.self] = newValue }
+    var bmrEstimationMode: BmrEstimationMode {
+        get { self[BmrEstimationModeKey.self] }
+        set { self[BmrEstimationModeKey.self] = newValue }
+    }
+    
+    var neatEstimationMode: NeatEstimationMode {
+        get { self[NeatEstimationModeKey.self] }
+        set { self[NeatEstimationModeKey.self] = newValue }
     }
     
     var refresh: PassthroughSubject<Void, Never> {
@@ -31,8 +36,13 @@ struct GoalKey: EnvironmentKey {
 }
 
 // Made public to use defaultValue whenever AppStorage is used directly
-struct EstimationModeKey: EnvironmentKey {
-    static let defaultValue = EstimationMode.burnOnly
+struct BmrEstimationModeKey: EnvironmentKey {
+    static let defaultValue = BmrEstimationMode.median
+}
+
+// Made public to use defaultValue whenever AppStorage is used directly
+struct NeatEstimationModeKey: EnvironmentKey {
+    static let defaultValue = NeatEstimationMode.minimum
 }
 
 private struct RefreshKey: EnvironmentKey {

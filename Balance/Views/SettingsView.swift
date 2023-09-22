@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("goal") var goal: Int = GoalKey.defaultValue
-    @AppStorage("estimationMode") var estimationMode: EstimationMode = EstimationModeKey.defaultValue
+    @AppStorage("bmrEstimationMode") var bmrEstimationMode: BmrEstimationMode = BmrEstimationModeKey.defaultValue
+    @AppStorage("neatEstimationMode") var neatEstimationMode: NeatEstimationMode = NeatEstimationModeKey.defaultValue
 
     @State var goalText: String = "-1500"
     @FocusState var goalFieldFocused: Bool
@@ -50,15 +51,29 @@ struct SettingsView: View {
                 Text("Goal")
             }
             VStack(alignment: .leading) {
-                Text("Estimate Future Calories?")
-                Picker("Estimate Future Calories?", selection: $estimationMode) {
-                    ForEach(EstimationMode.allCases, id: \.self) { mode in
-                        Text(mode.rawValue)
+                Text("Estimate \(EnergyType.bmr.descriptiveName)?")
+                Picker("Estimate \(EnergyType.bmr.descriptiveName)?", selection: $bmrEstimationMode) {
+                    ForEach(BmrEstimationMode.allCases, id: \.self) { mode in
+                        Text(mode.descriptiveName)
                     }
                 }
                 .pickerStyle(.segmented)
-                Text("\(estimationMode.explanation) Estimates are used for future dates, the remainder of today (prorated), and past dates where no data is available.")
+                Text(bmrEstimationMode.explanation)
                     .font(.caption)
+            }
+            VStack(alignment: .leading) {
+                Text("Estimate \(EnergyType.nonexercise.descriptiveName)?")
+                Picker("Estimate \(EnergyType.nonexercise.descriptiveName)?", selection: $neatEstimationMode) {
+                    ForEach(NeatEstimationMode.allCases, id: \.self) { mode in
+                        Text(mode.descriptiveName)
+                    }
+                }
+                .pickerStyle(.segmented)
+                Text(neatEstimationMode.explanation)
+                    .font(.caption)
+            }
+            NavigationLink("Definitons") {
+                DefinitionsView()
             }
         }
         .onAppear {
@@ -90,7 +105,8 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     struct SettingsViewPreviewWrapper: View {
         @State var goal = -1500
-        @State var estimationMode = EstimationMode.burnOnly
+        @State var bmrEstimationMode = BmrEstimationMode.median
+        @State var neatEstimationMode = NeatEstimationMode.minimum
         var body: some View {
             SettingsView()
         }

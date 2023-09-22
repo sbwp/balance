@@ -14,23 +14,26 @@ struct DailySummaryView: View {
     @Binding var displayWeight: Bool
     
     @Environment(\.goal) var goal
-    @Environment(\.estimationMode) var estimationMode
+    @Environment(\.bmrEstimationMode) var bmrEstimationMode
+    @Environment(\.neatEstimationMode) var neatEstimationMode
     @Environment(\.refresh) var refresh
     
-    @State var active: Int = 0
+    @State var exercise: Int = 0
+    @State var nonExercise: Int = 0
     @State var resting: Int = 0
     @State var dietary: Int = 0
     
     // Constants
     let hkHelper = HealthKitHelper.getInstance()
-    let activeColor = Color.green
+    let exerciseColor = Color.green
+    let nonExerciseColor = Color.blue
     let restingColor = Color.indigo
     let totalBurnColor = Color.purple
     let dietaryColor = Color.orange
     
     // Computed values
-    var totalBurn: Int { active + resting }
-    var netCalories: Int { dietary - active - resting }
+    var totalBurn: Int { exercise + nonExercise + resting }
+    var netCalories: Int { dietary - exercise - nonExercise - resting }
     var netWeightExpected: Double { Double(netCalories) / 3500 }
     var remainingDietaryCalories: Int { goal - netCalories }
     var remainingCaloriesText: String {
@@ -58,7 +61,7 @@ struct DailySummaryView: View {
     var body: some View {
         VStack(spacing: 20) {
             ZStack {
-                OpposedStacksCircle(valuesLeft: [dietary], colorsLeft: [dietaryColor], valuesRight: [resting, active], colorsRight: [restingColor, activeColor])
+                OpposedStacksCircle(valuesLeft: [dietary], colorsLeft: [dietaryColor], valuesRight: [resting, nonExercise, exercise], colorsRight: [restingColor, nonExerciseColor, exerciseColor])
                 VStack {
                     HStack(alignment: .bottom) {
                         Text(displayWeight ? "\(String(format: "%.1f", netWeightExpected))" : "\(netCalories)")
@@ -79,17 +82,44 @@ struct DailySummaryView: View {
             
             Spacer()
             
-            StackedBar(values: [resting, active], colors: [restingColor, activeColor], maxValue: 6000)
+            StackedBar(values: [resting, nonExercise, exercise], colors: [restingColor, nonExerciseColor, exerciseColor], maxValue: 6000)
             HStack(spacing: 4) {
                 Spacer()
-                Text("\(active) Active")
-                    .foregroundColor(activeColor)
+                VStack {
+                    Text("\(exercise)")
+                    Text(EnergyType.exercise.shortLabelName)
+                }
+                .foregroundColor(exerciseColor)
+                
                 Text("+")
-                Text("\(resting) Resting")
-                    .foregroundColor(restingColor)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 5)
+                
+                VStack {
+                    Text("\(nonExercise)")
+                    Text(EnergyType.nonexercise.shortLabelName)
+                }
+                .foregroundColor(nonExerciseColor)
+                
+                Text("+")
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 5)
+                
+                VStack {
+                    Text("\(resting)")
+                    Text(EnergyType.bmr.shortLabelName)
+                }
+                .foregroundColor(restingColor)
+                
                 Text("=")
-                Text("\(totalBurn) Burned")
-                    .foregroundColor(totalBurnColor)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 5)
+                
+                VStack {
+                    Text("\(totalBurn)")
+                    Text(EnergyType.tdee.shortLabelName)
+                }
+                .foregroundColor(totalBurnColor)
             }
             .font(.caption)
             .padding(.trailing, 5)
@@ -97,7 +127,7 @@ struct DailySummaryView: View {
             StackedBar(values: [dietary], colors: [dietaryColor], maxValue: 6000)
             HStack(spacing: 4) {
                 Spacer()
-                Text("\(dietary) Consumed")
+                Text("\(dietary) \(EnergyType.dietary.shortLabelName)")
                     .foregroundColor(dietaryColor)
             }
             .font(.caption)
@@ -125,12 +155,10 @@ struct DailySummaryView: View {
     
     func updateData() {
         Task {
-            let estimateResting = estimationMode != .none
-            let estimateActive = estimateResting && estimationMode != .restingOnly
-            let estimateDietary = estimateActive && estimationMode != .burnOnly
-            active = await hkHelper.getActiveEnergy(for: date, includeEstimated: estimateActive)
-            resting = await hkHelper.getRestingEnergy(for: date, includeEstimated: estimateResting)
-            dietary = await hkHelper.getDietaryEnergy(for: date, includeEstimated: estimateDietary)
+            exercise = await hkHelper.getExercise(for: date)
+            nonExercise = await hkHelper.getNonExercise(for: date, estimationMode: neatEstimationMode)
+            resting = await hkHelper.getBmr(for: date, estimationMode: bmrEstimationMode)
+            dietary = await hkHelper.getDietaryEnergy(for: date)
         }
     }
 }

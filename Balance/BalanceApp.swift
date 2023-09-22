@@ -10,13 +10,15 @@ import SwiftUI
 @main
 struct BalanceApp: App {
     @AppStorage("goal") var goal: Int = GoalKey.defaultValue
-    @AppStorage("estimationMode") var estimationMode: EstimationMode = EstimationModeKey.defaultValue
+    @AppStorage("bmrEstimationMode") var bmrEstimationMode: BmrEstimationMode = BmrEstimationModeKey.defaultValue
+    @AppStorage("neatEstimationMode") var neatEstimationMode: NeatEstimationMode = NeatEstimationModeKey.defaultValue
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.goal, goal)
-                .environment(\.estimationMode, estimationMode)
+                .environment(\.bmrEstimationMode, bmrEstimationMode)
+                .environment(\.neatEstimationMode, neatEstimationMode)
         }
     }
 }

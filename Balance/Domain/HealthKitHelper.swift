@@ -16,16 +16,16 @@ class HealthKitHelper {
         HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
         HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!,
         HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed)!,
-        HKObjectType.quantityType(forIdentifier: .heartRate)!,
-        HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
-        HKObjectType.quantityType(forIdentifier: .walkingHeartRateAverage)!
+        HKObjectType.workoutType()
     ])
     
     private var useFakeData = true
     private var initialized = false
     
-    private let fakeActive = 725
-    private let fakeResting = 3000
+    private let energyUnit = HKUnit.largeCalorie()
+    private let fakeNonExercise = 725
+    private let fakeExercise = 300
+    private let fakeBmr = 3000
     private let fakeDietary = 2000
     
     public static func getInstance() -> HealthKitHelper {
@@ -48,46 +48,74 @@ class HealthKitHelper {
         }
     }
     
-    public func getActiveEnergy(for dayToQuery: Date, includeEstimated: Bool) async -> Int {
-        return await getEnergy(type: .activeEnergyBurned, for: dayToQuery, estimationMethod: includeEstimated ? .neat : .none, placeholder: fakeActive)
+    public func getNonExercise(for dayToQuery: Date, estimationMode: NeatEstimationMode) async -> Int {
+        if !initialized {
+            await initialize()
+        }
+        
+        if useFakeData {
+            return fakeNonExercise
+        }
+        
+        var result = await getEnergy(type: .activeEnergyBurned, for: dayToQuery) - Double(getExercise(for: dayToQuery))
+        
+        if dayToQuery.isToday && estimationMode != .off {
+            result += await getNeatForRemainingTime(estimationMode: estimationMode)
+        }
+        
+        return Int(result.rounded())
     }
     
-    public func getRestingEnergy(for dayToQuery: Date, includeEstimated: Bool) async -> Int {
-        return await getEnergy(type: .basalEnergyBurned, for: dayToQuery, estimationMethod: includeEstimated ? .median : .none, placeholder: fakeResting)
+    public func getExercise(for dayToQuery: Date) async -> Int {
+        if !initialized {
+            await initialize()
+        }
+        
+        if useFakeData {
+            return fakeExercise
+        }
+        
+        return Int(await getWorkoutActiveEnergyTotal(forDay: dayToQuery, in: energyUnit).rounded())
     }
     
-    public func getDietaryEnergy(for dayToQuery: Date, includeEstimated: Bool) async -> Int {
-        return await getEnergy(type: .dietaryEnergyConsumed, for: dayToQuery, estimationMethod: includeEstimated ? .median : .none, placeholder: fakeDietary)
+    public func getBmr(for dayToQuery: Date, estimationMode: BmrEstimationMode) async -> Int {
+        if !initialized {
+            await initialize()
+        }
+        
+        if useFakeData {
+            return fakeBmr
+        }
+        
+        var result = await getEnergy(type: .basalEnergyBurned, for: dayToQuery)
+        
+        if dayToQuery.isToday && estimationMode != .off {
+            result += await getBmrEstimateForPastDays(estimationMode: estimationMode, in: energyUnit)
+        }
+        
+        return Int(result.rounded())
+    }
+    
+    public func getDietaryEnergy(for dayToQuery: Date) async -> Int {
+        if !initialized {
+            await initialize()
+        }
+        
+        if useFakeData {
+            return fakeDietary
+        }
+        
+        return Int(await getEnergy(type: .dietaryEnergyConsumed, for: dayToQuery).rounded())
     }
     
     public func forceNeatRecalc() {
         UserDefaults.standard.set(Double(0), forKey: "neatLastUpdated")
     }
     
-    private func getEnergy(type: HKQuantityTypeIdentifier, for dayToQuery: Date, estimationMethod: EstimationMethod, placeholder: Int) async -> Int {
-        if !initialized {
-            await initialize()
-        }
-        
-        if useFakeData {
-            return placeholder
-        }
-        
+    // TODO: Not necessary, just calls another function with one extra parameter
+    private func getEnergy(type: HKQuantityTypeIdentifier, for dayToQuery: Date) async -> Double {
         // Get actual total for requested day
-        var result: Double =  await getHealthKitQuantity(type: type, startingFrom: dayToQuery, in: .largeCalorie())
-        
-        if dayToQuery.isToday {
-            switch estimationMethod {
-            case .median:
-                result += await getMedianForPastDays(type: type, in: .largeCalorie())
-            case .neat:
-                result += await getNeatForRemainingTime()
-            case .none:
-                break
-            }
-        }
-        
-        return Int(result.rounded())
+        return await getHealthKitQuantity(type: type, startingFrom: dayToQuery, in: energyUnit)
     }
     
     private func getHealthKitQuantity(type: HKQuantityTypeIdentifier, startingFrom startDateTime: Date, endingAt endDateTimeInput: Date? = nil, in unit: HKUnit) async -> Double {
@@ -101,123 +129,122 @@ class HealthKitHelper {
         return (try? await descriptor.result(for: healthStore))?.sumQuantity()?.doubleValue(for: unit) ?? 0
     }
     
-    private func get90thPercentileHeartrate(startingFrom startDateTime: Date, endingAt endDateTimeInput: Date) async -> Double {
-        let endDateTime = endDateTimeInput
-        
-        let restingDescriptor = HKSampleQueryDescriptor(
-            predicates: [.quantitySample(type: HKQuantityType(.restingHeartRate), predicate: HKQuery.predicateForSamples(withStart: startDateTime, end: endDateTime))],
-            sortDescriptors: [SortDescriptor(\.endDate, order: .reverse)],
-            limit: 1
+    private func getWorkoutActiveEnergyTotal(forDay startDate: Date, in unit: HKUnit) async -> Double {
+        let descriptor = HKSampleQueryDescriptor(
+            predicates: [.workout(HKQuery.predicateForSamples(withStart: startDate, end: startDate.endOfDay))],
+            sortDescriptors: [SortDescriptor(\.endDate, order: .reverse)]
         )
         
-        guard let results = try? await restingDescriptor.result(for: healthStore) else {
-            return await getRestingHeartrate() ?? 50
+        guard let results = try? await descriptor.result(for: healthStore) else {
+            return 0
         }
         
-        let resultValues = results.map({ result in result.quantity.doubleValue(for: .bpm()) }).sorted()
-        
-        return resultValues.count > 0 ? resultValues[(resultValues.count * 9) / 10] : await getRestingHeartrate() ?? 50
+        return results
+            .map({ $0.statistics(for: HKQuantityType(.activeEnergyBurned))?.sumQuantity()?.doubleValue(for: unit) ?? 0 })
+            .reduce(0, { sum, next in sum + next })
     }
     
-    private func getRestingHeartrate() async -> Double? {
-        let restingDescriptor = HKSampleQueryDescriptor(
-            predicates: [.quantitySample(type: HKQuantityType(.restingHeartRate))],
-            sortDescriptors: [SortDescriptor(\.endDate, order: .reverse)],
-            limit: 1
+    private func getWorkoutCount(forHour startDate: Date, in unit: HKUnit) async -> Int {
+        let descriptor = HKSampleQueryDescriptor(
+            predicates: [.workout(HKQuery.predicateForSamples(withStart: startDate, end: startDate.addHours(1)))],
+            sortDescriptors: [SortDescriptor(\.endDate, order: .reverse)]
         )
         
-        return (try? await restingDescriptor.result(for: healthStore))?[0].quantity.doubleValue(for: .bpm())
-    }
-    
-    private func getWalkingAverageHeartRate() async -> Double? {
-        let walkingDescriptor = HKSampleQueryDescriptor(
-            predicates: [.quantitySample(type: HKQuantityType(.walkingHeartRateAverage))],
-            sortDescriptors: [SortDescriptor(\.endDate, order: .reverse)],
-            limit: 1
-        )
+        guard let results = try? await descriptor.result(for: healthStore) else {
+            return 0
+        }
         
-        return (try? await walkingDescriptor.result(for: healthStore))?[0].quantity.doubleValue(for: .bpm())
-    }
-    
-    private func getExerciseHeartrateMinimum() async -> Double {
-        let resting = await getRestingHeartrate() ?? 50
-        let walking = await getWalkingAverageHeartRate() ?? resting + 40
-        
-        return resting + ((walking - resting) * 0.8) // 4/5 of the way from resting to walking heart rate
+        return results.count
     }
     
     // Look at the 7 days prior to today for the remaining time period, take the lowest value
-    private func getMedianForPastDays(type: HKQuantityTypeIdentifier, in unit: HKUnit) async -> Double {
+    private func getBmrEstimateForPastDays(estimationMode: BmrEstimationMode, in unit: HKUnit) async -> Double {
         var values: [Double] = []
         
         for daysToSubtract in 1...7 {
-            values.append(await getHealthKitQuantity(type: type, startingFrom: Date().addDays(-daysToSubtract), in: unit))
+            values.append(await getHealthKitQuantity(type: .basalEnergyBurned, startingFrom: Date().addDays(-daysToSubtract), in: unit))
         }
         
-        return values[3]
+        values.sort()
+        
+        let idx = switch estimationMode {
+            case .median: 3
+            case .minimum: 0
+            default: 0
+        }
+        
+        return values[idx]
     }
     
     // Look at the 6 days prior to today for the remaining time period, take the lowest value
-    private func getNeatForRemainingTime() async -> Double {
-        if (shouldUpdateNeat()) {
-            await updateNeatEstimate(in: .largeCalorie())
+    private func getNeatForRemainingTime(estimationMode: NeatEstimationMode) async -> Double {
+        var neatForHours: [Double] = []
+        switch estimationMode {
+            case .minimum:
+                neatForHours = await estimateNeatMinimum(in: energyUnit)
+            case .mean:
+                neatForHours = await estimateNeatMean(in: energyUnit)
+            case .off:
+                return 0.0
         }
         
         var estimate: Double = 0
         
-        let defaults = UserDefaults.standard
         let now = Date()
         let startHour = now.hour
         let percentRemainingInHour = 1 - (Double(now.minute) / 60)
         
         for hour in (startHour + 1)..<24 {
-            estimate += defaults.double(forKey: "neat\(hour)")
+            estimate += neatForHours[hour]
         }
         
-        let currentHourValue = defaults.double(forKey: "neat\(startHour)")
+        let currentHourValue = neatForHours[startHour]
         estimate += currentHourValue * percentRemainingInHour
         
         return estimate
     }
     
-    private func shouldUpdateNeat() -> Bool {
-        let defaults = UserDefaults.standard
-        let date = Date(timeIntervalSince1970: TimeInterval(defaults.double(forKey: "neatLastUpdated"))) // Date will come back as 1970 if not present, which works here
-        return date.distanceInDays(to: Date()) ?? 100 > 7
-    }
-    
-    private func updateNeatEstimate(in unit: HKUnit) async -> Void {
+    private func estimateNeatMean(in unit: HKUnit) async -> [Double] {
         var calorieData: [Double] = Array(repeating: 0, count: 24)
         var count: [Int] = Array(repeating: 0, count: 24)
-        var heartRateUnclampedData: [Double] = Array(repeating: 0, count: 24)
-        
-        let minHeartRateConsideredExercise = await getExerciseHeartrateMinimum()
+        var dataIncludingExercise: [Double] = Array(repeating: 0, count: 24)
         
         for daysToSubtract in 1...7 {
             for hour in 0..<24 {
-                let start = Date().addDays(-daysToSubtract).setHour(hour)
+                let start = Date().addDays(-daysToSubtract).setTime(hour: hour)
                 let hourlyValue = await getHealthKitQuantity(type: .activeEnergyBurned, startingFrom: start, endingAt: start.addHours(1), in: unit)
-                let hourlyHeartRate = await get90thPercentileHeartrate(startingFrom: start, endingAt: start.addHours(1))
-                
-                // print("hour: \(hour) \n hourlyValue: \(hourlyValue) \n hourlyHeartRate: \(hourlyHeartRate) \n min: \(minHeartRateConsideredExercise) \n\n\n")
-                
-                if hourlyHeartRate.isLessThan(minHeartRateConsideredExercise, byDelta: 1) {
+                let didWorkout = await getWorkoutCount(forHour: start, in: unit) > 0
+                // TODO: Subtract workout energy instead of excluding if workout? Pro: Get more data, Con: Will capture additional burn from raised heartrate after workout
+                                
+                if !didWorkout {
                     calorieData[hour] += hourlyValue
                     count[hour] += 1
                 }
                 
-                heartRateUnclampedData[hour] += hourlyValue
+                dataIncludingExercise[hour] += hourlyValue
             }
         }
         
-        let results = calorieData.enumerated().map({ (index, sum) in count[index] > 0 ? sum / Double(count[index]) : 0 })
+        return calorieData.enumerated().map({ (index, sum) in count[index] > 0 ? sum / Double(count[index]) : 0 })
+    }
+    
+    private func estimateNeatMinimum(in unit: HKUnit) async -> [Double] {
+        var calorieData: [Double?] = Array(repeating: nil, count: 24)
         
-        let defaults = UserDefaults.standard
-        defaults.set(Double(Date().timeIntervalSince1970), forKey: "neatLastUpdated")
-        for hour in 0..<24 {
-            // print("hour: \(hour) \n NEAT: \(results[hour]) \n \n")
-            defaults.set(results[hour], forKey: "neat\(hour)")
+        for daysToSubtract in 1...7 {
+            for hour in 0..<24 {
+                let start = Date().addDays(-daysToSubtract).setTime(hour: hour)
+                let hourlyValue = await getHealthKitQuantity(type: .activeEnergyBurned, startingFrom: start, endingAt: start.addHours(1), in: unit)
+                let didWorkout = await getWorkoutCount(forHour: start, in: unit) > 0
+                // TODO: Subtract workout energy instead of excluding if workout? Pro: Get more data, Con: Will capture additional burn from raised heartrate after workout
+                                
+                if !didWorkout && (calorieData[hour] == nil || calorieData[hour]! > hourlyValue)  {
+                    calorieData[hour] = hourlyValue
+                }
+            }
         }
+        
+        return calorieData.enumerated().map({ (index, value) in value ?? 0 })
     }
 }
 
