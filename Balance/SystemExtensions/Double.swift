@@ -8,6 +8,10 @@
 import Foundation
 
 extension Double {
+    var formattedString: String {
+       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
+    
     func isGreaterThan(_ value: Double, byDelta delta: Double) -> Bool {
         return self - value > delta
     }

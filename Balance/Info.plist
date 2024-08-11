@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Reads information about energy consumed/burned in order to display a summary and insights</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Writes Dietary Energy from tracked foods so it can be viewed across apps</string>
+</dict>
 </plist>

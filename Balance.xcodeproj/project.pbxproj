@@ -7,10 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D916C5DF2C2F2836000C6CF4 /* EditDiaryEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D916C5DE2C2F2836000C6CF4 /* EditDiaryEntryView.swift */; };
+		D92F096E2C0FB50100CD0AF9 /* FoodResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F096D2C0FB50100CD0AF9 /* FoodResultView.swift */; };
+		D92F09702C10DF6000CD0AF9 /* Pantry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F096F2C10DF6000CD0AF9 /* Pantry.swift */; };
+		D92F09732C10E0E200CD0AF9 /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F09722C10E0E200CD0AF9 /* RuntimeError.swift */; };
+		D92F09752C10E7A100CD0AF9 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F09742C10E7A100CD0AF9 /* Endpoint.swift */; };
+		D92F09772C10EC3C00CD0AF9 /* DatabaseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F09762C10EC3C00CD0AF9 /* DatabaseObject.swift */; };
 		D94901BA2ABA9A8900048DE3 /* EnergyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94901B92ABA9A8900048DE3 /* EnergyType.swift */; };
 		D94901BC2ABAAFD500048DE3 /* BmrEstimationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94901BB2ABAAFD500048DE3 /* BmrEstimationMode.swift */; };
 		D94901BE2ABAAFE600048DE3 /* NeatEstimationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94901BD2ABAAFE600048DE3 /* NeatEstimationMode.swift */; };
 		D94901C02ABAB82F00048DE3 /* DefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94901BF2ABAB82F00048DE3 /* DefinitionsView.swift */; };
+		D977A08A2C18DE9D00EF89EC /* MeasureByOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977A0892C18DE9D00EF89EC /* MeasureByOption.swift */; };
+		D977A08C2C18E62C00EF89EC /* CreateDiaryEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D977A08B2C18E62C00EF89EC /* CreateDiaryEntryView.swift */; };
+		D9A3AD9A2C1FD613003310F7 /* DoubleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A3AD992C1FD613003310F7 /* DoubleField.swift */; };
 		D9A933AB2A95058E006E144A /* BalanceApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933AA2A95058E006E144A /* BalanceApp.swift */; };
 		D9A933AD2A95058E006E144A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933AC2A95058E006E144A /* ContentView.swift */; };
 		D9A933AF2A95058F006E144A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9A933AE2A95058F006E144A /* Assets.xcassets */; };
@@ -27,13 +36,31 @@
 		D9A933D42AA1237A006E144A /* EnvironmentKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */; };
 		D9A933D82AA1308A006E144A /* OpposedStacksCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */; };
 		D9A933DA2AA80FBA006E144A /* HKUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A933D92AA80FBA006E144A /* HKUnit.swift */; };
+		D9E132DD2B43615C008C1601 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132DC2B43615C008C1601 /* DiaryView.swift */; };
+		D9E132E12B43617C008C1601 /* DiaryEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132E02B43617C008C1601 /* DiaryEntryView.swift */; };
+		D9E132E32B43618F008C1601 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132E22B43618F008C1601 /* TrackingView.swift */; };
+		D9E132E82B4361CB008C1601 /* CreateFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132E72B4361CB008C1601 /* CreateFoodView.swift */; };
+		D9E132EC2B436793008C1601 /* IntegerField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132EB2B436793008C1601 /* IntegerField.swift */; };
+		D9E132F02B437279008C1601 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132EF2B437279008C1601 /* Food.swift */; };
+		D9E132F22B437698008C1601 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E132F12B437698008C1601 /* Meal.swift */; };
+		D9F6E4002BB72ADC00995E1C /* DiaryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6E3FF2BB72ADC00995E1C /* DiaryEntry.swift */; };
+		D9F6E4022BB72AF600995E1C /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F6E4012BB72AF600995E1C /* Unit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D916C5DE2C2F2836000C6CF4 /* EditDiaryEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiaryEntryView.swift; sourceTree = "<group>"; };
+		D92F096D2C0FB50100CD0AF9 /* FoodResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodResultView.swift; sourceTree = "<group>"; };
+		D92F096F2C10DF6000CD0AF9 /* Pantry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pantry.swift; sourceTree = "<group>"; };
+		D92F09722C10E0E200CD0AF9 /* RuntimeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
+		D92F09742C10E7A100CD0AF9 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		D92F09762C10EC3C00CD0AF9 /* DatabaseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseObject.swift; sourceTree = "<group>"; };
 		D94901B92ABA9A8900048DE3 /* EnergyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyType.swift; sourceTree = "<group>"; };
 		D94901BB2ABAAFD500048DE3 /* BmrEstimationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BmrEstimationMode.swift; sourceTree = "<group>"; };
 		D94901BD2ABAAFE600048DE3 /* NeatEstimationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeatEstimationMode.swift; sourceTree = "<group>"; };
 		D94901BF2ABAB82F00048DE3 /* DefinitionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefinitionsView.swift; sourceTree = "<group>"; };
+		D977A0892C18DE9D00EF89EC /* MeasureByOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureByOption.swift; sourceTree = "<group>"; };
+		D977A08B2C18E62C00EF89EC /* CreateDiaryEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDiaryEntryView.swift; sourceTree = "<group>"; };
+		D9A3AD992C1FD613003310F7 /* DoubleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleField.swift; sourceTree = "<group>"; };
 		D9A933A72A95058E006E144A /* Balance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Balance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9A933AA2A95058E006E144A /* BalanceApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceApp.swift; sourceTree = "<group>"; };
 		D9A933AC2A95058E006E144A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +80,15 @@
 		D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentKeys.swift; sourceTree = "<group>"; };
 		D9A933D72AA1308A006E144A /* OpposedStacksCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpposedStacksCircle.swift; sourceTree = "<group>"; };
 		D9A933D92AA80FBA006E144A /* HKUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKUnit.swift; sourceTree = "<group>"; };
+		D9E132DC2B43615C008C1601 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		D9E132E02B43617C008C1601 /* DiaryEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntryView.swift; sourceTree = "<group>"; };
+		D9E132E22B43618F008C1601 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
+		D9E132E72B4361CB008C1601 /* CreateFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFoodView.swift; sourceTree = "<group>"; };
+		D9E132EB2B436793008C1601 /* IntegerField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerField.swift; sourceTree = "<group>"; };
+		D9E132EF2B437279008C1601 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		D9E132F12B437698008C1601 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		D9F6E3FF2BB72ADC00995E1C /* DiaryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEntry.swift; sourceTree = "<group>"; };
+		D9F6E4012BB72AF600995E1C /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +102,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D92F09712C10E0CB00CD0AF9 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				D92F09722C10E0E200CD0AF9 /* RuntimeError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		D9A9339E2A95058E006E144A = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +157,8 @@
 				D9A933C72AA0FEA3006E144A /* ViewExtensions.swift */,
 				D9A933D32AA1237A006E144A /* EnvironmentKeys.swift */,
 				D9A933D92AA80FBA006E144A /* HKUnit.swift */,
+				D9E132EB2B436793008C1601 /* IntegerField.swift */,
+				D9A3AD992C1FD613003310F7 /* DoubleField.swift */,
 			);
 			path = SystemExtensions;
 			sourceTree = "<group>";
@@ -130,11 +176,13 @@
 		D9A933CB2AA0FFF3006E144A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9E132E42B436195008C1601 /* Diary */,
 				D9A933AC2A95058E006E144A /* ContentView.swift */,
 				D9A933C52AA0FC50006E144A /* DailySummaryView.swift */,
 				D9A933CF2AA11044006E144A /* SettingsView.swift */,
 				D9A933C92AA0FFC6006E144A /* UIElements */,
 				D94901BF2ABAB82F00048DE3 /* DefinitionsView.swift */,
+				D92F096D2C0FB50100CD0AF9 /* FoodResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,13 +190,43 @@
 		D9A933CC2AA0FFFA006E144A /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				D92F09712C10E0CB00CD0AF9 /* Errors */,
+				D9F6E3FC2BB72AAA00995E1C /* API Objects */,
 				D94901B92ABA9A8900048DE3 /* EnergyType.swift */,
 				D9A933B82A9505CA006E144A /* HealthKitHelper.swift */,
 				D9A933CD2AA10776006E144A /* GoalDirection.swift */,
 				D94901BB2ABAAFD500048DE3 /* BmrEstimationMode.swift */,
 				D94901BD2ABAAFE600048DE3 /* NeatEstimationMode.swift */,
+				D92F096F2C10DF6000CD0AF9 /* Pantry.swift */,
+				D92F09742C10E7A100CD0AF9 /* Endpoint.swift */,
+				D92F09762C10EC3C00CD0AF9 /* DatabaseObject.swift */,
+				D977A0892C18DE9D00EF89EC /* MeasureByOption.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		D9E132E42B436195008C1601 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				D9E132DC2B43615C008C1601 /* DiaryView.swift */,
+				D9E132E02B43617C008C1601 /* DiaryEntryView.swift */,
+				D9E132E22B43618F008C1601 /* TrackingView.swift */,
+				D9E132E72B4361CB008C1601 /* CreateFoodView.swift */,
+				D977A08B2C18E62C00EF89EC /* CreateDiaryEntryView.swift */,
+				D916C5DE2C2F2836000C6CF4 /* EditDiaryEntryView.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		D9F6E3FC2BB72AAA00995E1C /* API Objects */ = {
+			isa = PBXGroup;
+			children = (
+				D9E132F12B437698008C1601 /* Meal.swift */,
+				D9E132EF2B437279008C1601 /* Food.swift */,
+				D9F6E3FF2BB72ADC00995E1C /* DiaryEntry.swift */,
+				D9F6E4012BB72AF600995E1C /* Unit.swift */,
+			);
+			path = "API Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,22 +301,40 @@
 			files = (
 				D9A933AD2A95058E006E144A /* ContentView.swift in Sources */,
 				D9A933BF2A952C04006E144A /* StackedBar.swift in Sources */,
+				D92F09772C10EC3C00CD0AF9 /* DatabaseObject.swift in Sources */,
 				D9A933B92A9505CA006E144A /* HealthKitHelper.swift in Sources */,
+				D92F09732C10E0E200CD0AF9 /* RuntimeError.swift in Sources */,
+				D92F09702C10DF6000CD0AF9 /* Pantry.swift in Sources */,
+				D9E132E82B4361CB008C1601 /* CreateFoodView.swift in Sources */,
+				D9E132F22B437698008C1601 /* Meal.swift in Sources */,
+				D9F6E4022BB72AF600995E1C /* Unit.swift in Sources */,
 				D9A933AB2A95058E006E144A /* BalanceApp.swift in Sources */,
 				D9A933C82AA0FEA3006E144A /* ViewExtensions.swift in Sources */,
 				D9A933DA2AA80FBA006E144A /* HKUnit.swift in Sources */,
 				D94901BC2ABAAFD500048DE3 /* BmrEstimationMode.swift in Sources */,
+				D9E132F02B437279008C1601 /* Food.swift in Sources */,
 				D9A933BD2A951C5C006E144A /* Date.swift in Sources */,
+				D916C5DF2C2F2836000C6CF4 /* EditDiaryEntryView.swift in Sources */,
 				D94901BA2ABA9A8900048DE3 /* EnergyType.swift in Sources */,
+				D9A3AD9A2C1FD613003310F7 /* DoubleField.swift in Sources */,
 				D9A933D82AA1308A006E144A /* OpposedStacksCircle.swift in Sources */,
+				D977A08C2C18E62C00EF89EC /* CreateDiaryEntryView.swift in Sources */,
+				D9E132DD2B43615C008C1601 /* DiaryView.swift in Sources */,
+				D9E132E12B43617C008C1601 /* DiaryEntryView.swift in Sources */,
 				D9A933CE2AA10776006E144A /* GoalDirection.swift in Sources */,
 				D9A933C62AA0FC51006E144A /* DailySummaryView.swift in Sources */,
+				D9F6E4002BB72ADC00995E1C /* DiaryEntry.swift in Sources */,
 				D9A933D42AA1237A006E144A /* EnvironmentKeys.swift in Sources */,
 				D9A933D22AA11D37006E144A /* DateFlipper.swift in Sources */,
 				D9A933C42A958079006E144A /* Double.swift in Sources */,
 				D9A933D02AA11044006E144A /* SettingsView.swift in Sources */,
+				D92F09752C10E7A100CD0AF9 /* Endpoint.swift in Sources */,
 				D94901BE2ABAAFE600048DE3 /* NeatEstimationMode.swift in Sources */,
+				D92F096E2C0FB50100CD0AF9 /* FoodResultView.swift in Sources */,
 				D94901C02ABAB82F00048DE3 /* DefinitionsView.swift in Sources */,
+				D9E132E32B43618F008C1601 /* TrackingView.swift in Sources */,
+				D9E132EC2B436793008C1601 /* IntegerField.swift in Sources */,
+				D977A08A2C18DE9D00EF89EC /* MeasureByOption.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +478,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -414,6 +511,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

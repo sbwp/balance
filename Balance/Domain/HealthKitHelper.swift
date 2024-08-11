@@ -11,7 +11,9 @@ class HealthKitHelper {
     private static var instance: HealthKitHelper!
     private let healthStore = HKHealthStore()
     
-    private let healthStoreWriteTypes = Set<HKSampleType>([])
+    private let healthStoreWriteTypes = Set<HKSampleType>([
+        HKObjectType.quantityType(forIdentifier: .dietaryEnergyConsumed)!
+    ])
     private let healthStoreReadTypes = Set([
         HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
         HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!,
@@ -19,7 +21,7 @@ class HealthKitHelper {
         HKObjectType.workoutType()
     ])
     
-    private var useFakeData = true
+    private var useFakeData = true // gets set to false after successfully requesting authorization from HealthKit
     private var initialized = false
     
     private let energyUnit = HKUnit.largeCalorie()
@@ -27,6 +29,8 @@ class HealthKitHelper {
     private let fakeExercise = 300
     private let fakeBmr = 3000
     private let fakeDietary = 2000
+    private let useDefaultBmrThreshold = 0.7
+    private var started = false
     
     public static func getInstance() -> HealthKitHelper {
         if (instance == nil) {
@@ -63,7 +67,7 @@ class HealthKitHelper {
             result += await getNeatForRemainingTime(estimationMode: estimationMode)
         }
         
-        return Int(result.rounded())
+        return result > 200 ? Int(result.rounded()) : UserDefaults.standard.integer(forKey: "defaultNeat")
     }
     
     public func getExercise(for dayToQuery: Date) async -> Int {
@@ -87,13 +91,17 @@ class HealthKitHelper {
             return fakeBmr
         }
         
+        // Want to switch to the first option below, but I need to look into using HKStatisticsCollectionQuery
+        // because when an entry goes over the border of an hour (e.g. 9:45 - 10:15), it counts for both hours right now
+        // var result = await getReasonableBmr(from: dayToQuery.startOfDay, to: dayToQuery.isToday ? Date() : dayToQuery.endOfDay, in: energyUnit)
         var result = await getEnergy(type: .basalEnergyBurned, for: dayToQuery)
         
         if dayToQuery.isToday && estimationMode != .off {
             result += await getBmrEstimateForPastDays(estimationMode: estimationMode, in: energyUnit)
         }
         
-        return Int(result.rounded())
+        let defaultValue = UserDefaults.standard.integer(forKey: "defaultBmr")
+        return result > (Double(defaultValue) * useDefaultBmrThreshold) ? Int(result.rounded()) : defaultValue
     }
     
     public func getDietaryEnergy(for dayToQuery: Date) async -> Int {
@@ -115,7 +123,10 @@ class HealthKitHelper {
     // TODO: Not necessary, just calls another function with one extra parameter
     private func getEnergy(type: HKQuantityTypeIdentifier, for dayToQuery: Date) async -> Double {
         // Get actual total for requested day
-        return await getHealthKitQuantity(type: type, startingFrom: dayToQuery, in: energyUnit)
+        let result = await getHealthKitQuantity(type: type, startingFrom: dayToQuery, in: energyUnit)
+        // print("\(type.rawValue) \(result) cal")
+        return result
+        // return await getHealthKitQuantity(type: type, startingFrom: dayToQuery, in: energyUnit)
     }
     
     private func getHealthKitQuantity(type: HKQuantityTypeIdentifier, startingFrom startDateTime: Date, endingAt endDateTimeInput: Date? = nil, in unit: HKUnit) async -> Double {
@@ -157,12 +168,59 @@ class HealthKitHelper {
         return results.count
     }
     
+    private func getReasonableBmr(from startTime: Date, to endTime: Date, in unit: HKUnit) async -> Double {
+        var timeBlocks = [(Date, Date)]()
+        
+        let shouldLog = !started
+        started = true
+        
+        var current = startTime
+        while current < endTime {
+            let next = current.addHours(1)
+            if next < endTime {
+                timeBlocks.append((current, next))
+            } else {
+                timeBlocks.append((current, endTime))
+            }
+            current = next
+        }
+        
+        let defaultValue = Double(UserDefaults.standard.integer(forKey: "defaultBmr")) / 24
+        var total: Double = 0
+        for (start, end) in timeBlocks {
+            var value = await getHealthKitQuantity(type: .basalEnergyBurned, startingFrom: start, endingAt: end, in: unit)
+            let percentageOfHour = Double(Calendar.current.dateComponents([.minute], from: start, to: end).minute ?? 60) / 60
+            let defaultForPeriod = defaultValue * percentageOfHour
+            
+            if (shouldLog) {
+                print("\(start.formatted()) - \(end.formatted()), \(value), \(defaultForPeriod), \(value < defaultForPeriod * useDefaultBmrThreshold)")
+            }
+            
+            if value < defaultForPeriod * useDefaultBmrThreshold {
+                value = defaultForPeriod
+            }
+            
+            total += value
+        }
+        
+        if shouldLog {
+            print("\(startTime.formatted()) - \(endTime.formatted()), total: \(total)")
+        }
+        return total
+    }
+    
     // Look at the 7 days prior to today for the remaining time period, take the lowest value
-    private func getBmrEstimateForPastDays(estimationMode: BmrEstimationMode, in unit: HKUnit) async -> Double {
+    private func getBmrEstimateForPastDays(estimationMode: BmrEstimationMode, in unit: HKUnit, starting startTime: Date = Date()) async -> Double {
         var values: [Double] = []
         
         for daysToSubtract in 1...7 {
-            values.append(await getHealthKitQuantity(type: .basalEnergyBurned, startingFrom: Date().addDays(-daysToSubtract), in: unit))
+            var value = await getHealthKitQuantity(type: .basalEnergyBurned, startingFrom: startTime.addDays(-daysToSubtract), in: unit)
+            
+            if value == 0 {
+                value = Double(UserDefaults.standard.integer(forKey: "defaultBmr")) * startTime.percentRemainingInDay
+            }
+            
+            values.append(value)
         }
         
         values.sort()

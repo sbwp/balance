@@ -9,11 +9,17 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("goal") var goal: Int = GoalKey.defaultValue
+    @AppStorage("defaultNeat") var defaultNeat: Int = DefaultNeatKey.defaultValue
+    @AppStorage("defaultBmr") var defaultBmr: Int = DefaultBmrKey.defaultValue
     @AppStorage("bmrEstimationMode") var bmrEstimationMode: BmrEstimationMode = BmrEstimationModeKey.defaultValue
     @AppStorage("neatEstimationMode") var neatEstimationMode: NeatEstimationMode = NeatEstimationModeKey.defaultValue
 
     @State var goalText: String = "-1500"
+    @State var defaultNeatText: String = "600"
+    @State var defaultBmrText: String = "3000"
     @FocusState var goalFieldFocused: Bool
+    @FocusState var defaultNeatFocused: Bool
+    @FocusState var defaultBmrFocused: Bool
     
     let intFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -21,6 +27,10 @@ struct SettingsView: View {
         formatter.allowsFloats = false
         return formatter
     }()
+    
+    let defaultNeatExplanation = "Default NEAT is used when the watch is not worn and no data is available for the entire day."
+    
+    let defaultBmrExplanation = "Default BMR is used when the watch is not worn and no data is available for the entire day."
     
     var body: some View {
         Form {
@@ -50,6 +60,7 @@ struct SettingsView: View {
             } label: {
                 Text("Goal")
             }
+            
             VStack(alignment: .leading) {
                 Text("Estimate \(EnergyType.bmr.descriptiveName)?")
                 Picker("Estimate \(EnergyType.bmr.descriptiveName)?", selection: $bmrEstimationMode) {
@@ -72,23 +83,80 @@ struct SettingsView: View {
                 Text(neatEstimationMode.explanation)
                     .font(.caption)
             }
+            
+            
+            VStack(alignment: .leading) {
+                LabeledContent {
+                    TextField("Default NEAT", text: Binding(
+                        get: { defaultNeatText },
+                        set: { value in
+                            defaultNeatText = value
+                            if let i = Int(value) {
+                                defaultNeat = i
+                            }
+                        })
+                    )
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
+                    .frame(width: 80)
+                    .focused($defaultNeatFocused)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle)
+                } label: {
+                    Text("Default NEAT")
+                }
+                
+                Text(defaultNeatExplanation)
+                    .font(.caption)
+            }
+            
+            VStack(alignment: .leading) {
+                LabeledContent {
+                    TextField("Default BMR", text: Binding(
+                        get: { defaultBmrText },
+                        set: { value in
+                            defaultBmrText = value
+                            if let i = Int(value) {
+                                defaultBmr = i
+                            }
+                        })
+                    )
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .frame(width: 80)
+                        .focused($defaultBmrFocused)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle)
+                } label: {
+                    Text("Default BMR")
+                }
+                
+                Text(defaultBmrExplanation)
+                    .font(.caption)
+            }
+            
             NavigationLink("Definitons") {
                 DefinitionsView()
             }
         }
         .onAppear {
             goalText = "\(goal)"
+            defaultNeatText = "\(defaultNeat)"
+            defaultBmrText = "\(defaultBmr)"
         }
         .toolbar {
             ToolbarItem(placement: .keyboard) {
                 Button("+/-") {
-                    goal = -goal
-                    if goalText.hasPrefix("-") {
-                        goalText = String(goalText.suffix(goalText.count - 1))
-                    } else {
-                        goalText = "-\(goalText)"
+                    if goalFieldFocused {
+                        goal = -goal
+                        if goalText.hasPrefix("-") {
+                            goalText = String(goalText.suffix(goalText.count - 1))
+                        } else {
+                            goalText = "-\(goalText)"
+                        }
                     }
                 }
+                .disabled(!goalFieldFocused)
             }
             ToolbarItem(placement: .keyboard) {
                 Spacer()
@@ -96,6 +164,8 @@ struct SettingsView: View {
             ToolbarItem(placement: .keyboard) {
                 Button("Done") {
                     goalFieldFocused = false
+                    defaultNeatFocused = false
+                    defaultBmrFocused = false
                 }
             }
         }

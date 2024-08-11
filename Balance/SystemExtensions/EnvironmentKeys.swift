@@ -14,6 +14,16 @@ extension EnvironmentValues {
         set { self[GoalKey.self] = newValue }
     }
     
+    var defaultNeat: Int {
+        get { self[DefaultNeatKey.self] }
+        set { self[DefaultNeatKey.self] = newValue }
+    }
+    
+    var defaultBmr: Int {
+        get { self[DefaultBmrKey.self] }
+        set { self[DefaultBmrKey.self] = newValue }
+    }
+    
     var bmrEstimationMode: BmrEstimationMode {
         get { self[BmrEstimationModeKey.self] }
         set { self[BmrEstimationModeKey.self] = newValue }
@@ -33,6 +43,16 @@ extension EnvironmentValues {
 // Made public to use defaultValue whenever AppStorage is used directly
 struct GoalKey: EnvironmentKey {
     static let defaultValue: Int = -1500
+}
+
+// Made public to use defaultValue whenever AppStorage is used directly
+struct DefaultNeatKey: EnvironmentKey {
+    static let defaultValue: Int = 600
+}
+
+// Made public to use defaultValue whenever AppStorage is used directly
+struct DefaultBmrKey: EnvironmentKey {
+    static let defaultValue: Int = 3000
 }
 
 // Made public to use defaultValue whenever AppStorage is used directly

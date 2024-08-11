@@ -39,12 +39,12 @@ struct ContentView: View {
             //     }
             // }
             .onAppear(perform: { refresh.send() })
-            .onChange(of: bmrEstimationMode, perform: { _ in refresh.send() })
-            .onChange(of: neatEstimationMode, perform: { _ in refresh.send() })
-            .onChange(of: dateOffset, perform: { _ in
+            .onChange(of: bmrEstimationMode) { refresh.send() }
+            .onChange(of: neatEstimationMode) { refresh.send() }
+            .onChange(of: dateOffset) {
                 refresh.send()
-            })
-            .onChange(of: scenePhase) { newPhase in
+            }
+            .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     refresh.send()
                 }

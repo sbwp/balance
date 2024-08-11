@@ -56,24 +56,24 @@ struct OpposedStacksCircle: View {
                     ForEach(Array(geometryValuesList.enumerated()), id: \.0) { index, geometryValues in
                         Circle()
                             .trim(from: geometryValues.trimStart, to: geometryValues.trimEnd)
-                            .stroke(geometryValues.color, lineWidth: geometryValues.isThick ? 30 : 20)
+                            .stroke(geometryValues.color, lineWidth: geometryValues.isThick ? (geometry.size.width * 0.1).rounded(.up) : (geometry.size.width * 0.0667).rounded(.up))
                     }
                     
                     // Thin Line
                     Circle()
                         .trim(from: overhang.trimStart, to: overhang.trimEnd)
                         .stroke(.primary, lineWidth: 2)
-                        .padding(30)
+                        .padding((geometry.size.width * 0.1).rounded(.up))
                     
                     // Thin Line Ends
                     Circle()
                         .trim(from: overhang.trimStart, to: overhang.trimStart + overhangEndCapStrokeWidth(geometry))
-                        .stroke(.primary, lineWidth: 20)
-                        .padding(30)
+                        .stroke(.primary, lineWidth: (geometry.size.width * 0.0667).rounded(.up))
+                        .padding((geometry.size.width * 0.1).rounded(.up))
                     Circle()
                         .trim(from: overhang.trimEnd - overhangEndCapStrokeWidth(geometry), to: overhang.trimEnd)
-                        .stroke(.primary, lineWidth: 20)
-                        .padding(30)
+                        .stroke(.primary, lineWidth: (geometry.size.width * 0.0667).rounded(.up))
+                        .padding((geometry.size.width * 0.1).rounded(.up))
                 }
                 .rotationEffect(.degrees(-90))
             }
@@ -105,6 +105,9 @@ struct SegmentedCircle_Previews: PreviewProvider {
         OpposedStacksCircle(valuesLeft: [592], colorsLeft: [.yellow, .green, .blue], valuesRight: [3152, 750], colorsRight: [.blue, .green, .purple])
             .padding(50)
         OpposedStacksCircle(valuesLeft: [3152, 592], colorsLeft: [.yellow, .green, .blue], valuesRight: [750], colorsRight: [.blue, .green, .purple])
+            .padding(50)
+        OpposedStacksCircle(valuesLeft: [592], colorsLeft: [.yellow, .green, .blue], valuesRight: [3152, 750], colorsRight: [.blue, .green, .purple])
+            .frame(width: 100, height: 100)
             .padding(50)
     }
 }

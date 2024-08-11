@@ -82,4 +82,21 @@ enum EnergyType: String, CaseIterable {
             return "Net Calories"
         }
     }
+    
+    var veryShortLabelName: String {
+        switch self {
+        case .dietary:
+            return "Food"
+        case .bmr:
+            return "BMR"
+        case .nonexercise:
+            return "NEAT"
+        case .exercise:
+            return "Exercise"
+        case .tdee:
+            return "Total"
+        case .net:
+            return "Net"
+        }
+    }
 }

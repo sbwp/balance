@@ -11,6 +11,14 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         return clipShape(RoundedCorner(radius: radius, corners: corners))
     }
+    
+    func unitDropdownFrame() -> some View {
+        return frame(maxWidth: 100)
+    }
+    
+    func fullyTappable() -> some View {
+        return contentShape(Rectangle())
+    }
 }
 
 struct RoundedCorner: Shape {

@@ -11,6 +11,11 @@ extension Date {
     static var today: Date {
         return Date().startOfDay
     }
+    
+    var noon: Date {
+        return self.setHour(12)
+    }
+    
     var startOfDay: Date {
         return Calendar.current.startOfDay(for: self)
     }
