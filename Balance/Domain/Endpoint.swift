@@ -8,9 +8,9 @@
 import Foundation
 
 class Endpoint {
-    static let baseUrl = "API_BASE_URL"
-    static let apiKeyHeader = "API_KEY_HEADER" // TODO
-    static let apiKey = "API_KEY" // TODO
+    static let baseUrl = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as! String
+    static let apiKeyHeader = Bundle.main.object(forInfoDictionaryKey: "API_KEY_HEADER") as! String
+    static let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
     static let food = Endpoint(endpoint: "food")
     static let diaryEntry = Endpoint(endpoint: "diaryEntry")
     

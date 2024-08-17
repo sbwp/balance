@@ -49,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		D916C5DE2C2F2836000C6CF4 /* EditDiaryEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiaryEntryView.swift; sourceTree = "<group>"; };
+		D92490702C71490F00580390 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D92F096D2C0FB50100CD0AF9 /* FoodResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodResultView.swift; sourceTree = "<group>"; };
 		D92F096F2C10DF6000CD0AF9 /* Pantry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pantry.swift; sourceTree = "<group>"; };
 		D92F09722C10E0E200CD0AF9 /* RuntimeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -113,6 +114,7 @@
 		D9A9339E2A95058E006E144A = {
 			isa = PBXGroup;
 			children = (
+				D92490702C71490F00580390 /* Config.xcconfig */,
 				D9A933A92A95058E006E144A /* Balance */,
 				D9A933A82A95058E006E144A /* Products */,
 			);
@@ -343,6 +345,7 @@
 /* Begin XCBuildConfiguration section */
 		D9A933B32A95058F006E144A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92490702C71490F00580390 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -393,7 +396,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -405,6 +408,7 @@
 		};
 		D9A933B42A95058F006E144A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92490702C71490F00580390 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -449,7 +453,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -461,6 +465,7 @@
 		};
 		D9A933B62A95058F006E144A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92490702C71490F00580390 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -494,6 +499,7 @@
 		};
 		D9A933B72A95058F006E144A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D92490702C71490F00580390 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
